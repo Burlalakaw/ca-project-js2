@@ -1,0 +1,498 @@
+
+Search ("/" to focus)
+Authentication
+This authentication is only related to the /social endpoints. If you're looking for authentication for the /quotes endpoint, please see this documentation.
+
+These endpoints are used to authorize yourself with the API server. All /social routes require an authorization token to be included in the request.
+
+Register
+POST /api/v1/social/auth/register
+This endpoint will register a new user profile. You will need to send all of the required values in your POST request:
+
+{
+  "name": "my_username", // Required
+  "email": "first.last@noroff.no", // Required
+  "password": "UzI1NiIsInR5cCI", // Required
+  "avatar": "https://img.service.com/avatar.jpg", // Optional
+  "banner": "https://img.service.com/banner.jpg" // Optional
+}
+The name value must not contain punctuation symbols apart from underscore (_).
+
+The email value must be a valid noroff.no email address.
+
+The password value must be at least 8 characters.
+
+You can now use your registered account to log in.
+
+Login
+POST /api/v1/social/auth/login
+You can use this endpoint to login with your registered user. You will need to send the following body along with the POST request.
+
+{
+  "email": "first.last@stud.noroff.no",
+  "password": "UzI1NiIsInR5cCI"
+}
+In return you will receive a response with the following body:
+
+{
+  "name": "my_username",
+  "email": "first.last@stud.noroff.no",
+  "avatar": "https://img.service.com/avatar.jpg",
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...."
+}
+You can now use this access token as the Bearer token in the Authorization header for all /social endpoints.
+
+Example of sending Authorization header.
+const options = {
+  headers: {
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....',
+  },
+}
+const response = await fetch(`${API_BASE_URL}/api/v1/social/posts`, options)
+const data = await response.json()
+
+
+Search ("/" to focus)
+About
+This API has been provided to students for practicing and completing assignments.
+
+All content posted to this API is publicly visible to other students, and your account must use your Noroff email address. Please ensure that the content you post is appropriate for this platform.
+
+Unlike a normal API, this API has CORS enabled meaning that you can access the API from localhost.
+
+Current API version
+The current version of this API is v1.
+
+The API base URL for v1 is https://nf-api.onrender.com/api/v1.
+
+##################################################################
+
+
+Search ("/" to focus)
+About
+This API has been provided to students for practicing and completing assignments.
+
+All content posted to this API is publicly visible to other students, and your account must use your Noroff email address. Please ensure that the content you post is appropriate for this platform.
+
+Unlike a normal API, this API has CORS enabled meaning that you can access the API from localhost.
+
+Current API version
+The current version of this API is v1.
+
+The API base URL for v1 is https://nf-api.onrender.com/api/v1.
+
+#####################################################################
+
+Authentication
+This authentication is only related to the /quotes endpoint. If you're looking for authentication for the /social endpoints, please see the Social Auth documentation.
+
+Some endpoints may require you to be authenticated. This is done by sending an Authorization header with your access token along with your request.
+
+Login
+In order to receive an access token you will need to login. You do not need to register an account, you can simply login with any username.
+
+You can login by sending a POST request to the /api/v1/auth/login endpoint with your username in the request body.
+
+POST /api/v1/auth/login
+{
+  "username": "my_username"
+}
+In return you will receive a response with the following body:
+
+{
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...."
+}
+You can now use this access token as the Bearer token in the Authorization header for all endpoints that require authentication.
+
+Example of sending Authorization header.
+const options = {
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....',
+  },
+}
+const response = await fetch(`${API_BASE_URL}/api/v1/quotes`, options)
+const data = await response.json()
+
+##¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤
+
+Login
+In order to receive an access token you will need to login. You do not need to register an account, you can simply login with any username.
+
+You can login by sending a POST request to the /api/v1/auth/login endpoint with your username in the request body.
+
+POST /api/v1/auth/login
+{
+  "username": "my_username"
+}
+In return you will receive a response with the following body:
+
+{
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...."
+}
+You can now use this access token as the Bearer token in the Authorization header for all endpoints that require authentication.
+
+Example of sending Authorization header.
+const options = {
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....',
+  },
+}
+const response = await fetch(`${API_BASE_URL}/api/v1/quotes`, options)
+const data = await response.json()
+
+
+##########################################################################
+Register
+POST /api/v1/social/auth/register
+This endpoint will register a new user profile. You will need to send all of the required values in your POST request:
+
+{
+  "name": "my_username", // Required
+  "email": "first.last@noroff.no", // Required
+  "password": "UzI1NiIsInR5cCI", // Required
+  "avatar": "https://img.service.com/avatar.jpg", // Optional
+  "banner": "https://img.service.com/banner.jpg" // Optional
+}
+The name value must not contain punctuation symbols apart from underscore (_).
+
+The email value must be a valid noroff.no email address.
+
+The password value must be at least 8 characters.
+
+You can now use your registered account to log in.
+
+
+##############################################################################
+
+Posts
+These are authenticated endpoints. You can visit authentication to get an access token.
+
+Post Model
+The basic post response object has the following properties:
+
+// GET /api/v1/social/posts/0
+{
+  "id": 0,
+  "title": "string",
+  "body": "string",
+  "tags": ["string"],
+  "media": "string",
+  "created": "2022-09-04T08:08:38.830Z",
+  "updated": "2022-09-04T08:08:38.830Z",
+  "owner": "string"
+}
+Using the optional _flag query parameters available it is possible to access author, comments and reactions within this response object. For example:
+
+// GET /api/v1/social/posts/0?_author=true&_comments=true&reactions=true
+{
+  "id": 0,
+  "title": "string",
+  "body": "string",
+  "tags": ["string"],
+  "media": "string",
+  "created": "2022-09-04T08:08:38.830Z",
+  "updated": "2022-09-04T08:08:38.830Z",
+  "author": {
+    "name": "string",
+    "email": "user@example.com",
+    "avatar": "string"
+  },
+  "reactions": [
+    {
+      "symbol": "string",
+      "count": 0,
+      "postId": 0,
+      "message": "string"
+    }
+  ],
+  "comments": [
+    {
+      "body": "string",
+      "id": 0,
+      "postId": 0,
+      "owner": "string",
+      "created": "2022-09-04T08:17:59.383Z"
+    }
+  ]
+}
+All entries
+GET /api/v1/social/posts
+This endpoint returns all registered profiles in an array.
+
+// GET /api/v1/social/posts/
+[
+  {
+    "id": 0,
+    "title": "string",
+    "body": "string",
+    "tags": ["string"],
+    "media": "string",
+    "created": "2022-09-04T08:08:38.830Z",
+    "updated": "2022-09-04T08:08:38.830Z",
+    "owner": "string"
+  },
+  {
+    "id": 0,
+    "title": "string",
+    "body": "string",
+    "tags": ["string"],
+    "media": "string",
+    "created": "2022-09-04T08:08:38.830Z",
+    "updated": "2022-09-04T08:08:38.830Z",
+    "owner": "string"
+  }
+  // ...
+]
+The list of items can be sorted with the sort & sortOrder flags:
+
+// GET /api/v1/social/posts?sort=created&sortOrder=desc
+// GET /api/v1/social/posts?sort=title&sortOrder=asc
+Lists can be sorted by any item properties, in the order ascending (asc) or descending (desc).
+
+Single entry
+This endpoint returns a single registered endpoint.
+
+// GET /api/v1/social/posts/0
+{
+  "id": 0,
+  "title": "string",
+  "body": "string",
+  "tags": ["string"],
+  "media": "string",
+  "created": "2022-09-04T08:08:38.830Z",
+  "updated": "2022-09-04T08:08:38.830Z",
+  "owner": "string"
+}
+Use _author, _comments and/or _reactions flags to get more data from this request.
+
+Create entry
+This endpoint allows for the creation of a new post. The title property is required. The request body contains:
+
+{
+  "title": "string",   // Required
+  "body": "string",    // Optional
+  "tags": ["string"],  // Optional
+  "media": "string"    // Optional
+}
+The response body contains:
+
+// POST /api/v1/social/posts
+{
+  "id": 0,
+  "owner": "string",
+  "created": "2022-09-04T16:21:02.042Z",
+  "updated": "2022-09-04T16:21:02.042Z",
+  "title": "string",
+  "body": "string",
+  "tags": ["string"],
+  "media": "string"
+}
+Update entry
+This endpoint updates an entry based on its id and returns the updated entry.
+
+The request body contains:
+
+{
+  "title": "string",
+  "body": "string",
+  "tags": ["string"],
+  "media": "string"
+}
+The response body contains:
+
+// PUT /api/v1/social/posts/<id>
+{
+  "id": 0,
+  "owner": "string",
+  "created": "2022-09-04T16:21:02.044Z",
+  "updated": "2022-09-04T16:21:02.044Z",
+  "title": "string",
+  "body": "string",
+  "tags": ["string"],
+  "media": "string"
+}
+Delete entry
+This endpoint deletes an entry based on its id and returns nothing.
+
+// DELETE /api/v1/social/posts/\<id>
+React to entry
+React to an entry with a symbol. Returns the reaction count for that symbol, the post, and the post id.
+
+You do not need to include a body value in this request.
+
+// PUT /api/v1/social/posts/<id>/react/<symbol>
+{
+  "symbol": "string",
+  "count": "number",
+  "postId": "number"
+}
+Comment on entry
+This endpoint allows a comment to be made on a post. The optional replyToId property can be used to link this comment to an existing comment.
+
+The request body contains:
+
+{
+  "body": "string",     // Required
+  "replyToId": "number" // Optional
+}
+The response body contains:
+
+// POST /api/v1/social/posts/<id>/comment
+{
+  "body": "string",
+  "replyToId": 0,
+  "id": 0,
+  "postId": 0,
+  "owner": "string",
+  "created": "2022-09-04T16:29:07.175Z"
+}
+
+############################################################################
+
+Profiles
+These are authenticated endpoints. You can visit authentication to get an access token.
+
+Profile Model
+The basic post response object has the following properties:
+
+// GET /api/v1/social/profiles/<name>
+{
+  "name": "string",
+  "email": "user@example.com",
+  "banner": "string",
+  "avatar": "string",
+  "_count": {
+    "posts": 0,
+    "followers": 0,
+    "following": 0
+  }
+}
+Using the optional _flag query parameters available it is possible to access posts, following and followers within this response object. For example:
+
+// GET /api/v1/social/profiles/name?_posts=true&_following=true&_followers=true
+{
+  "name": "string",
+  "email": "user@example.com",
+  "banner": "string",
+  "avatar": "string",
+  "followers": [
+    {
+      "name": "string",
+      "avatar": "string"
+    }
+  ],
+  "following": [
+    {
+      "name": "string",
+      "avatar": "string"
+    }
+  ],
+  "posts": [
+    {
+      "id": 0,
+      "owner": "string",
+      "created": "2022-09-05T06:32:10.593Z",
+      "updated": "2022-09-05T06:32:10.593Z",
+      "title": "string",
+      "body": "string",
+      "tags": [
+        "string"
+      ],
+      "media": "string"
+    }
+  ],
+  "_count": {
+    "posts": 0,
+    "followers": 0,
+    "following": 0
+  }
+}
+All entries
+GET /api/v1/social/profiles
+This endpoint returns a list of all registered profiles.
+
+[
+  {
+    "name": "string",
+    "email": "user@example.com",
+    "banner": "string",
+    "avatar": "string",
+    "_count": {
+      "posts": 0,
+      "followers": 0,
+      "following": 0
+    }
+  },
+  {
+    "name": "string",
+    "email": "user@example.com",
+    "banner": "string",
+    "avatar": "string",
+    "_count": {
+      "posts": 0,
+      "followers": 0,
+      "following": 0
+    }
+  }
+]
+Single entry
+GET /api/v1/social/profiles/<name>
+This endpoint returns a single registered profile.
+
+// GET /api/v1/social/profiles/<name>
+{
+  "name": "string",
+  "email": "user@example.com",
+  "banner": "string",
+  "avatar": "string",
+  "_count": {
+    "posts": 0,
+    "followers": 0,
+    "following": 0
+  }
+}
+Update entry media
+PUT /api/v1/social/profiles/<name>/media
+This endpoint allows for profile banner and avatar images to be set. The request body contains:
+
+{
+  "banner": "string", // Optional
+  "avatar": "string", // Optional
+}
+The response body contains:
+
+// PUT /api/v1/social/profiles/<name>
+{
+  "name": "string",
+  "email": "user@example.com",
+  "banner": "string",
+  "avatar": "string",
+  "_count": {
+    "posts": 0,
+    "followers": 0,
+    "following": 0
+  }
+},
+Follow & Unfollow Profile
+PUT /api/v1/social/profiles/<name>/follow
+PUT /api/v1/social/profiles/<name>/unfollow
+This endpoint allows for the current logged in user to follow or unfollow another registered profile.
+
+The request body should be empty.
+
+The response body contains:
+
+// PUT /api/v1/social/profiles/<name>/follow
+{
+  "name": "string",
+  "email": "user@example.com",
+  "banner": "string",
+  "avatar": "string",
+  "_count": {
+    "posts": 0,
+    "followers": 0,
+    "following": 0
+  }
+},
